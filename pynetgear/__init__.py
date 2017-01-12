@@ -79,12 +79,18 @@ class Netgear(object):
 
             if len(info) == 0:
                 continue
-            elif len(info) < 4:
+            elif len(info) < 3:
                 _LOGGER.warning('Unexpected entry: %s', info)
                 continue
 
-            signal = convert(info[0].split("@")[0], int)
-            ipv4, name, mac = info[1:4]
+            if len(info) < 4:
+                mac_and_sig, ipv4, name = info
+                mac_and_sig = mac_and_sig.split("@")
+                mac = mac_and_sig[0]
+                signal = convert(mac_and_sig[1], int)
+            else:
+                signal = convert(info[0].split("@")[0], int)
+                ipv4, name, mac = info[1:4]
 
             # Not all routers will report link type and rate
             if len(info) >= 6:
