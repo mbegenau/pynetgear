@@ -88,6 +88,8 @@ class Netgear(object):
                 mac_and_sig = mac_and_sig.split("@")
                 mac = mac_and_sig[0]
                 signal = convert(mac_and_sig[1], int)
+                if ':' not in mac:
+                    continue
             else:
                 signal = convert(info[0].split("@")[0], int)
                 ipv4, name, mac = info[1:4]
