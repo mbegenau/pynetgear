@@ -25,7 +25,7 @@ class Netgear(object):
         self.soap_url = "http://{}:{}/soap/server_sa/".format(host, port)
         self.username = user
         self.password = password
-        self.port = port if (isinstance(port, int) or port.isDigit()) else DEFAULT_PORT
+        self.port = port if (isinstance(port, int) or (isinstance(port, str) and port.isDigit())) else DEFAULT_PORT
         self.logged_in = host is DEFAULT_HOST
 
     def login(self):
