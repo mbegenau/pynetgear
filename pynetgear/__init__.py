@@ -22,10 +22,10 @@ class Netgear(object):
     def __init__(self, password=None, host=DEFAULT_HOST, user=DEFAULT_USER,
                  port=DEFAULT_PORT):
         """Initialize a Netgear session."""
-        self.soap_url = "http://{}:{}/soap/server_sa/".format(host, port)
+        self.port = port if (isinstance(port, int) or (isinstance(port, str) and port.isDigit())) else DEFAULT_PORT
+        self.soap_url = "http://{}:{}/soap/server_sa/".format(host, self.port)
         self.username = user
         self.password = password
-        self.port = port if (isinstance(port, int) or (isinstance(port, str) and port.isDigit())) else DEFAULT_PORT
         self.logged_in = host is DEFAULT_HOST
 
     def login(self):
